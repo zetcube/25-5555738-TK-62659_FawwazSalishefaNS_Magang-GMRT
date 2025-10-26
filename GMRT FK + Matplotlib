@@ -1,0 +1,44 @@
+# GMRT FK code dengan tambahan matplotlib
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+print("Jumlah degree of freedom: 2 DoF")
+
+a = math.radians(int(input("Masukkan derajat rotasi pertama: ")))
+b = math.radians(int(input("Masukkan derajat rotasi kedua: ")))
+l1= int(input("Masukkan panjang lengan pertama: "))
+l2= int(input("Masukkan panjang lengan kedua: "))
+
+h04 = np.array([[math.cos(a+b), math.sin(a+b), l1*math.cos(a) + l2*math.cos(a+b)],
+               [math.sin(a+b), math.cos(a+b), l1*math.sin(a) + l2*math.sin(a+b)],
+               [0, 0, 1 ]])
+print(h04)
+
+tx = h04[0][2]
+ty = h04[1][2]
+
+print(f"koordinat akhir({tx}, {ty})")
+
+h01 = np.array([[math.cos(a), -math.sin(a), 0],
+               [math.sin(a), math.cos(a), 0],
+               [0, 0, 1 ]])
+h12 = np.array([[1, 0, l1],
+                [0, 1, 0 ],
+                [0, 0, 1 ]])
+
+h02 = np.matmul(h01, h12)
+
+tx1 = h02[0][2]
+ty1 = h02[1][2]
+
+xpoint1 = np.array([0, tx1])
+ypoint1 = np.array([0, ty1])
+
+xpoint2 = np.array([tx1, tx])
+ypoint2 = np.array([ty1, ty])
+
+plt.plot(xpoint1, ypoint1)
+plt.plot(xpoint2, ypoint2)
+plt.show()
+
