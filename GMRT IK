@@ -1,0 +1,13 @@
+#GMRT IK
+import math
+
+tx = 65.12979813083125
+ty = 97.07612649353024
+l1 = 56
+l2 = 65
+b = math.radians(30)
+
+a = math.degrees(math.atan(ty/tx) - math.atan((l2*math.sin(b))/(l1 + l2*math.cos(b))))
+b = math.degrees(math.acos((tx**2 + ty**2 - l1**2 - l2**2)/(2*l1*l2)))
+print(f"Nilai jumlah rotasi pertama: {a}")
+print(f"Nilai jumlah rotasi kedua: {b}")
